@@ -8,7 +8,6 @@ const config = require('config')
 const jwtSecret = config.get('jwtSecret');
 const auth = require('../middleware/auth');
 
-
 /************************************
  * @route   GET    /api/auth/
  * @desc    Get logged in user
@@ -30,8 +29,8 @@ router.get('/', auth, async (req, res) => {
  * @access  Public
  */
 router.post('/login', [
-    check('email','Enter valid email address').isEmail(),
-    check('password', 'Minimum length of password is 8').isLength({min:8}),
+    check('email','Email ID required').isLength({min:1}),
+    check('password', 'Minimum length of password is 8').isLength({min:8})
 ], async (req, res) => {
     const errors = await validationResult(req);
     if(!errors.isEmpty()) {
@@ -42,7 +41,7 @@ router.post('/login', [
     try {
         let user = await User.findOne({email: email});
         if(!user){
-            res.status(400).json({error: "Auth failed"});
+            res.status(400).json({error: "Invalid email ID"});
         }
         //validate the password
         const isValidPassword = await bcrypt.compare(password, user.password);

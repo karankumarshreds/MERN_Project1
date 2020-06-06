@@ -24,7 +24,7 @@ router.post('/signup', [
     //returns an array
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-        res.status(400).json({errors: errors.array()})
+        return res.status(400).json({errors: errors.array()});
     }
     //if no errors in request
     const {name, email, password} = req.body;
