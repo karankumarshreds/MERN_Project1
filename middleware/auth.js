@@ -9,9 +9,11 @@ const auth = (req, res, next) => {
     }
     //if there is a token, we need to validate it
     try {
+        //the payload object(including token) 
+        //will be saved in decoded
         const decoded = jwt.verify(token, jwtSecret);
-        //if valid, the payload object(including token) 
-        //will be saved in decoded 
+        //extracting instance user id attached
+        //in payload and passing it further as:
         req.userID = decoded.id;
         next();
     } catch (error) {
