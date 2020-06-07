@@ -92,8 +92,21 @@ router.put('/:id', auth, [
  * @desc    Delete contact
  * @access  Private
  */
-router.delete('/:id', (req, res) => {
-    res.send('Delete Contact');
+router.delete('/:id', auth, async (req, res) => {
+    const id = req.params.id;
+    try {
+        const contact = await Contact.findById(id);
+        if (!contact) {
+            return res.status(404).json({error: "No contact found"});
+        } //check if use owns contact
+        if(contact.user.toString() !== req.userID) {
+            return res.status(401).json({error: "Not Authorized"});
+        }
+        const removedContact = await contact.remove({_id: id});
+        res.status(201).json({Response: "Contact removed"});
+    } catch (error) {
+        res.status(500).json({err: "Internal server error"})
+    }
 });
 
 
