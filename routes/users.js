@@ -24,16 +24,19 @@ router.post('/signup', [
     //returns an array
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-        return res.status(400).json({err: errors.array(), response: "fuck"});
+        return res.status(401).json({err: errors.array(), response: "fuck"});
     }
     //if no errors in request
+    console.log("here??")
     const {name, email, password} = req.body;
     //try working with the db
     try {
         //to check if the email already exists
         let user = await User.findOne({email: email});
+        console.log(user);
         if(user){
-            res.status(400).json({err: "Email already exists"})
+            console.log("YESSS")
+            return res.status(400).send("Email already exists");
         }
         const salt = await bcrypt.genSalt(10);
         hashedPassword = await bcrypt.hash(password, salt);

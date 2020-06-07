@@ -8,7 +8,11 @@ import ContactStateProvider from './context/contact/ContactState';
 import AuthStatePovider from './context/auth/AuthState';
 import Register from './components/Register';
 import Login from './components/Login';
+import setAuthToken from './utils/setAuthToken';
 
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 function App() {
   return (
     <div className="App">
