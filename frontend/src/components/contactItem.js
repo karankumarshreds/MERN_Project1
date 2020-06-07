@@ -9,14 +9,14 @@ const ContactItem = (props) => {
   const { deleteContact, setCurrent } = useContext(ContactContext);
   const deleteHandler = (e) => {
     deleteContact(props.id);
-  }
+  };
   const { id, name, email, phone, type } = props;
   const contact = [
     { id, name, email, phone, type}
-  ]
+  ];
   const setCurrentHandler = (e) => {
-    setCurrent(contact)
-  }
+    setCurrent(contact);
+  };
   return (
       <Card style={{ width: '18rem' }} className="mx-auto my-2">
         <CardBody style={{boxShadow: "2px 4px 5px 0px rgba(0,0,0,0.35)"}}>

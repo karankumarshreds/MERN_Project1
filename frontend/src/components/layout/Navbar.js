@@ -22,6 +22,12 @@ const Navbar_ = ({ title, icon }) => {
               <NavItem>
                 <NavLink tag={Link} to="/about">About</NavLink>
               </NavItem>
+              <NavItem>
+                <NavLink tag={Link} to="/register">Register</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={Link} to="/login">Login</NavLink>
+              </NavItem>
             </Nav>
           </Collapse>
         </Navbar>

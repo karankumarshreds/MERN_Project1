@@ -24,7 +24,7 @@ router.post('/signup', [
     //returns an array
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-        return res.status(400).json({errors: errors.array()});
+        return res.status(400).json({err: errors.array(), response: "fuck"});
     }
     //if no errors in request
     const {name, email, password} = req.body;
@@ -55,7 +55,7 @@ router.post('/signup', [
             token: token
         });
     } catch (err) {
-        res.status(500).send('Internal server error');
+        res.status(500).json({err: "Internal server error"});
     }
 })
 

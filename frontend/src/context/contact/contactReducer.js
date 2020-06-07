@@ -1,4 +1,4 @@
-import { ADD_CONTACT, DELETE_CONTACT, SET_CURRENT, CLEAR_CURRENT } from "../types";
+import { ADD_CONTACT, DELETE_CONTACT, SET_CURRENT, CLEAR_CURRENT, UPDATE_CURRENT } from "../types";
 
 export default (state, action) => {
     switch(action.type) {
@@ -18,6 +18,18 @@ export default (state, action) => {
             return {
                 ...state, current: null
             }
+        case UPDATE_CURRENT:
+            const updatedContacts = state.contacts.map((each) => {
+                if (each.id === action.payload.id) {
+                    return action.payload.contact_data;
+                }
+                else {
+                    return each;
+                }
+            })
+            return {
+                ...state, contacts: updatedContacts
+            };            
         default:
             return state;
     }
